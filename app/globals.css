@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f4f1e9;
+  --color-paper-deep: #ebe6d9;
+  --color-ink: #1f1e1b;
+  --color-muted: #6c685e;
+  --color-rule: #d6d0c3;
+  --color-cobalt: #2a48e2;
+  --color-cobalt-soft: #dfe3fb;
+}
+
+@theme inline {
+  --font-serif: var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, 'SFMono-Regular', monospace;
+}
+
+/* ---------- Base ---------- */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-cobalt);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cobalt);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Small-caps catalog label used across sections */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Animated underline for text links */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.2s;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* ---------- Hero ---------- */
+
+.hero-stamp {
+  transition: transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hero-stamp:hover {
+  transform: rotate(120deg);
+}
+
+.cta-arrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cta:hover .cta-arrow,
+.cta:focus-visible .cta-arrow {
+  transform: translateY(4px);
+}
+
+/* The cobalt period hops when you hover the greeting */
+.hero-dot {
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.hero-greeting:hover .hero-dot {
+  transform: translateY(-0.18em);
+}
+
+/* ---------- Project cards ---------- */
+
+.card-enter {
+  animation: card-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.cover-art {
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cover-arrow {
+  opacity: 0;
+  transform: translate(-6px, 6px);
+  transition: opacity 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.card-title {
+  transition: color 0.2s;
+}
+
+.project-card:focus-within .cover-art {
+  transform: scale(1.035);
+}
+.project-card:focus-within .cover-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) {
+  .project-card:hover .cover-art {
+    transform: scale(1.035) translateY(-1%);
+  }
+  .project-card:hover .cover-arrow {
+    opacity: 1;
+    transform: none;
+  }
+  .project-card:hover .card-title {
+    color: var(--color-cobalt);
+  }
+}
+
+/* Horizontal scrollers without a visible scrollbar (still scrollable by touch, trackpad, and keyboard) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Monospace text inside inline SVGs */
+.svg-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+}
+
+/* ---------- About: photo placeholders ---------- */
+
+.photo-slot {
+  transition: rotate 0.5s cubic-bezier(0.3, 1.4, 0.5, 1), translate 0.5s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.photo-slot:hover {
+  rotate: 0deg;
+  translate: 0 -6px;
+}
+
+/* ---------- Motion preferences ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .hero-stamp:hover {
+    transform: none;
+  }
+}
